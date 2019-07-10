@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.stackfing</groupId>
-    <artifactId>sform-core</artifactId>
+    <artifactId>sform-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>sform-core</name>
+    <name>sform-parent</name>
     <description>An Automatic Form Generation Tool</description>
 
     <modules>
