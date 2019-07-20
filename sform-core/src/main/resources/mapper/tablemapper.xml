@@ -33,4 +33,15 @@
         )
     </update>
 
+    <select id="tableIsExist" resultType="int" parameterType="string">
+        select count(*)
+        from information_schema.TABLES t where
+        t.TABLE_SCHEMA ="demos"
+        and t.TABLE_NAME = #{tableName};
+    </select>
+
+    <update id="dropTable">
+        drop table if exists ${tableName}
+    </update>
+
 </mapper>

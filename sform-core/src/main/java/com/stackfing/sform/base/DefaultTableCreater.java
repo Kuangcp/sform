@@ -18,6 +18,11 @@ public class DefaultTableCreater extends AbstractTableCreater {
 
 	@Override
 	protected void create(Table table) {
+		int i = tablesMapper.tableIsExist(table.getTableName());
+		if (i == 1) {
+			//存在表，drop
+			tablesMapper.dropTable(table.getTableName());
+		}
 		tablesMapper.createTableNew(table);
 	}
 }

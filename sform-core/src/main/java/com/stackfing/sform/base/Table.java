@@ -18,6 +18,10 @@ public class Table implements Inspectable {
 
 	private String tableName;
 
+	public Table() {
+
+	}
+
 	public Table(String tableName) {
 		this.tableName = tableName;
 	}

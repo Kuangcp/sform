@@ -20,4 +20,8 @@ public interface TablesMapper extends BaseMapper<Tables> {
 	void createTableReView(@Param("newTableName") String newTableName, @Param("columns") List<Column> columns);
 
 	void createTableNew(Table table);
+
+	int tableIsExist(String tableName);
+
+	void dropTable(@Param("tableName")String tableName);
 }
