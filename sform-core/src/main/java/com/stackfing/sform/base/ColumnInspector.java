@@ -32,7 +32,7 @@ public class ColumnInspector extends AbstractInspector<Column> {
 	 * @param column
 	 */
 	private void inspectType(Column column) {
-		if (!types.contains(column.getName())) {
+		if (!types.contains(column.getType())) {
 			throw new ColumnException("类型错误！");
 		}
 	}
