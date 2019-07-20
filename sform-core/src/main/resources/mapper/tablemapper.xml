@@ -26,7 +26,7 @@
 <!--        DROP TABLE IF EXISTS ${tableName};-->
         CREATE TABLE IF NOT EXISTS ${tableName} (
         <foreach item="item" index="index" collection="columns" open="" separator="," close="">
-            ${item.name} ${item.type}
+            ${item.name} ${item.type} <if test="item.length != null">(${item.length})</if>
              <if test="item.comment != null">comment '${item.comment}'</if>
 
         </foreach>

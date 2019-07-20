@@ -40,12 +40,10 @@ public class Column implements Inspectable {
 	public Column(String name, String type, Integer length) {
 		this.name = name;
 		this.type = type;
+		this.length = length;
 	}
 
-	public void setLength(Integer length) {
-		this.length = length;
-		String type = this.type;
-		type = type.concat("(" + length + ")");
-		this.setType(type);
+	public Column() {
+
 	}
 }
