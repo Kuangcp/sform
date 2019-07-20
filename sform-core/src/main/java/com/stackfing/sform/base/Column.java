@@ -10,21 +10,32 @@ import lombok.Data;
 @Data
 public class Column implements Inspectable {
 
+	//列名
 	private String name;
 
+	//类型
 	private String type;
 
+	//长度
 	private Integer length;
 
+	//是否为空
 	private Boolean notNull = false;
 
+	//小数点位数
 	private Integer radix;
 
+	//是否为主键
 	private Boolean isPrimary = false;
 
+	//是否为无符号
 	private Boolean isUnsigned = false;
 
+	//注释
 	private String comment;
+
+	//默认值
+	private String columnDefault;
 
 	public Column(String name, String type) {
 		this.name = name;
