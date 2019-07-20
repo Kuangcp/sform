@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stackfing.sform.mapper.TablesMapper">
+    <select id="selectTable" resultType="hashmap">
+        select * from
+    </select>
+    <update id="createTable">
+        CREATE TABLE ${newTableName} (
+        <foreach item="item" index="index" collection="columns" open="" separator="," close="">
+            ${item.name} ${item.type}
+        </foreach>
+        )
+    </update>
+
+    <update id="createTableReView">
+        CREATE TABLE ${newTableName} (
+        <foreach item="item" index="index" collection="columns" open="" separator="," close="">
+            ${item.name} ${item.type}
+        </foreach>
+        )
+    </update>
+
+    <update id="createTableNew">
+<!--        DROP TABLE IF EXISTS ${tableName};-->
+        CREATE TABLE IF NOT EXISTS ${tableName} (
+        <foreach item="item" index="index" collection="columns" open="" separator="," close="">
+            ${item.name} ${item.type}
+             <if test="item.comment != null">comment '${item.comment}'</if>
+
+        </foreach>
+        )
+    </update>
+
+</mapper>
