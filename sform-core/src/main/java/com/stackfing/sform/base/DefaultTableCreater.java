@@ -16,6 +16,10 @@ public class DefaultTableCreater extends AbstractTableCreater {
 	@Autowired
 	private TablesMapper tablesMapper;
 
+	/**
+	 * 真正的建表逻辑
+	 * @param table
+	 */
 	@Override
 	protected void create(Table table) {
 		int i = tablesMapper.tableIsExist(table.getTableName());

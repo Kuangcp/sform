@@ -1,7 +1,5 @@
 package com.stackfing.sform.base;
 
-import javafx.scene.control.Tab;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,14 +17,24 @@ public abstract class AbstractTableCreater implements TableCreater {
 		inspectableList.add(new TableInspector());
 	}
 
+	/**
+	 * 子类重写此方法，用于真正的表创建逻辑
+	 * @param table
+	 */
+	protected abstract void create(Table table);
+
 	@Override
 	public void createTable(Table table) {
+		//建表前需要检查表是否按照规则创建
 		prepareCreateTable(table);
 		create(table);
 	}
 
-	protected abstract void create(Table table);
 
+	/**
+	 * 用于检测表中的列是否合规
+	 * @param table
+	 */
 	private void prepareCreateTable(Table table) {
 		ColumnInspector columnInspector = new ColumnInspector();
 		for (Column column : table.getColumns()) {

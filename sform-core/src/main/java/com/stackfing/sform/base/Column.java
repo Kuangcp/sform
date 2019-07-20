@@ -37,7 +37,7 @@ public class Column implements Inspectable {
 	//默认值
 	private String columnDefault;
 
-	public Column(String name, String type) {
+	public Column(String name, String type, Integer length) {
 		this.name = name;
 		this.type = type;
 	}
