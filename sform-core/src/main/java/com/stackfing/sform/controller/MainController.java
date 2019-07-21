@@ -22,7 +22,17 @@ public class MainController {
 	@Autowired
 	private TableCreater tableCreater;
 
+	@Autowired
+	private TablesMapper tablesMapper;
+
+	@GetMapping("customSql")
+	public List<Map<Object, Object>> customSql(@RequestParam String sql) {
+		return tablesMapper.selectByCustom(sql);
+//		return tablesMapper.selectByCustom("SELECT MONTH(createtime) as x, names as y FROM books");
+	}
+
 	@PostMapping("createTable")
+
 	public String create(@RequestBody Table table) {
 		tableCreater.createTable(table);
 		return "创建成功！";
