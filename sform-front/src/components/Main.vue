@@ -1,16 +1,7 @@
 <template>
   <div class="hello">
-    <div
-      id="myChart"
-      :style="{width: '300px', height: '300px'}"
-    ></div>
-
-    <el-input v-model="sql"></el-input>
-    <el-button
-      type="primary"
-      @click="loadChartData"
-    >点击获取所有数据</el-button>
-    <h1>创建表</h1>
+    <router-link to="/chart" replace="true">动态SQL图表</router-link>
+    <h1>创建数据源</h1>
     <el-form :inline="true">
       <el-form-item label="表名">
         <el-input v-model="tableName"></el-input>
@@ -44,22 +35,19 @@ export default {
   },
   data() {
     return {
-      sql: "",
-      orgOptions: {},
       postbuttonstatus: false,
       columnSize: 3,
       columns: [
-        // {
-        //   name: "",
-        //   type: "",
-        //   length: "",
-        //   comment: "",
-        //   isPrimary: ""
-        // }
+        {
+          name: "",
+          type: "",
+          length: "",
+          comment: "",
+          isPrimary: ""
+        }
       ],
       tableName: "",
-      xList: [],
-      yList: [],
+     
       options: [
         {
           label: "数字类型(int)",
@@ -77,38 +65,7 @@ export default {
     };
   },
   methods: {
-    loadChartData() {
-      this.axios
-        .get("http://localhost:8080/customSql?sql=" + this.sql)
-        .then(res => {
-          console.log(res.data);
-          for (var i = 0; i < res.data.length; i++) {
-            console.log(res.data[i]);
-            this.xList.push(res.data[i].x);
-            this.yList.push(res.data[i].y);
-          }
-        })
-        .catch(error => {});
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = this.$echarts.init(document.getElementById("myChart"));
-      // 绘制图表
-      console.log(this.xList);
-      myChart.setOption({
-        title: { text: "动态SQL加载图表" },
-        tooltip: {},
-        xAxis: {
-          data: this.xList
-        },
-        yAxis: {},
-        series: [
-          {
-            name: "销量",
-            type: "bar",
-            data: this.yList
-          }
-        ]
-      });
-    },
+    
     deleteColumn(index) {
       if (this.columns.length > 1) {
         this.columns.splice(index, 1);
@@ -140,13 +97,12 @@ export default {
   },
   created() {},
   mounted() {
-    this.loadChartData
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 h1,
 h2 {
   font-weight: normal;
@@ -161,6 +117,13 @@ li {
 }
 a {
   color: #42b983;
+}
+a :visited {
+  color: #42b983;
+}
+a :link {
+  color: #42b983;
+
 }
 .hello {
   /* width: 500px; */
