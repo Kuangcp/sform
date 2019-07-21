@@ -1,4 +1,4 @@
-package com.stackfing.sform.base;
+package com.stackfing.sform.base.inspect;
 
 /**
  * @Author: fing

@@ -1,6 +1,6 @@
 package com.stackfing.sform.base;
 
-import javafx.scene.control.Tab;
+import com.stackfing.sform.base.inspect.Inspectable;
 import lombok.Data;
 
 import java.util.ArrayList;

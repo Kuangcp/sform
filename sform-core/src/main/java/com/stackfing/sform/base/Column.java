@@ -1,6 +1,8 @@
 package com.stackfing.sform.base;
 
+import com.stackfing.sform.base.inspect.Inspectable;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @Author: fing
@@ -8,6 +10,7 @@ import lombok.Data;
  * @Date: 下午5:05 19-7-20
  */
 @Data
+@NoArgsConstructor
 public class Column implements Inspectable {
 
 	//列名
@@ -20,30 +23,23 @@ public class Column implements Inspectable {
 	private Integer length;
 
 	//是否为空
-	private Boolean notNull = false;
+	private Boolean notnull = false;
 
 	//小数点位数
 	private Integer radix;
 
 	//是否为主键
-	private Boolean isPrimary = false;
+	private Boolean primary = false;
 
 	//是否为无符号
-	private Boolean isUnsigned = false;
+	private Boolean unsigned = false;
 
 	//注释
 	private String comment;
 
 	//默认值
-	private String columnDefault;
+	private String defaults;
 
-	public Column(String name, String type, Integer length) {
-		this.name = name;
-		this.type = type;
-		this.length = length;
-	}
+	private Boolean autoIncrement;
 
-	public Column() {
-
-	}
 }

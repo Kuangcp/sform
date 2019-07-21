@@ -24,4 +24,6 @@ public interface TablesMapper extends BaseMapper<Tables> {
 	int tableIsExist(String tableName);
 
 	void dropTable(@Param("tableName")String tableName);
+
+	List<Map<Object, Object>> selectByCustom(@Param("sql") String sql);
 }

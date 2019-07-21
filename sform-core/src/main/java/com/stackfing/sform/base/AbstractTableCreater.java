@@ -1,5 +1,9 @@
 package com.stackfing.sform.base;
 
+import com.stackfing.sform.base.inspect.AbstractInspector;
+import com.stackfing.sform.base.inspect.support.ColumnInspector;
+import com.stackfing.sform.base.inspect.support.TableInspector;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,11 +40,11 @@ public abstract class AbstractTableCreater implements TableCreater {
 	 * @param table
 	 */
 	private void prepareCreateTable(Table table) {
-		ColumnInspector columnInspector = new ColumnInspector();
+		AbstractInspector<Column> columnInspector = new ColumnInspector();
 		for (Column column : table.getColumns()) {
 			columnInspector.inspect(column);
 		}
-		TableInspector tableInspector = new TableInspector();
+		AbstractInspector<Table> tableInspector = new TableInspector();
 		tableInspector.inspect(table);
 	}
 }

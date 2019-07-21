@@ -1,4 +1,4 @@
-package com.stackfing.sform.base;
+package com.stackfing.sform.base.inspect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,6 @@ public abstract class AbstractInspector<T> {
 	protected List<Inspectable> inspectableList = new ArrayList<>();
 
 
-	protected abstract void inspect(T t);
+	public abstract void inspect(T t);
 
 }

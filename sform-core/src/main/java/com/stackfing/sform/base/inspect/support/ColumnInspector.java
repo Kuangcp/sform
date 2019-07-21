@@ -1,5 +1,7 @@
-package com.stackfing.sform.base;
+package com.stackfing.sform.base.inspect.support;
 
+import com.stackfing.sform.base.Column;
+import com.stackfing.sform.base.inspect.AbstractInspector;
 import com.stackfing.sform.exception.ColumnException;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ public class ColumnInspector extends AbstractInspector<Column> {
 
 	private List<String> excludeColumnName = new ArrayList<>(Arrays.asList(new String[]{"table", "name"}));
 
+	//TODO 主键只能为数字类型
 	private List<String> types = new ArrayList<>(Arrays.asList(new String[]{"varchar", "int", "bigint"}));
 
 	/**
@@ -22,7 +25,7 @@ public class ColumnInspector extends AbstractInspector<Column> {
 	 * @param column
 	 */
 	@Override
-	protected void inspect(Column column) {
+	public void inspect(Column column) {
 		excludeColumnName(column);
 		inspectType(column);
 	}

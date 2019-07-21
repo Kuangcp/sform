@@ -1,5 +1,7 @@
-package com.stackfing.sform.base;
+package com.stackfing.sform.base.support;
 
+import com.stackfing.sform.base.AbstractTableCreater;
+import com.stackfing.sform.base.Table;
 import com.stackfing.sform.mapper.TablesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
