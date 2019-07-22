@@ -2,6 +2,7 @@ package com.stackfing.sform.controller;
 
 import com.stackfing.sform.base.Table;
 import com.stackfing.sform.base.TableCreater;
+import com.stackfing.sform.beans.BusniessObjectSource;
 import com.stackfing.sform.mapper.TablesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,9 +33,13 @@ public class MainController {
 	}
 
 	@PostMapping("createTable")
-
 	public String create(@RequestBody Table table) {
 		tableCreater.createTable(table);
 		return "创建成功！";
+	}
+
+	@GetMapping("datasources")
+	public List<BusniessObjectSource> getDatasources() {
+		return null;
 	}
 }
