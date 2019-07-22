@@ -18,7 +18,6 @@ public class ViewObjetSourceLoader extends AbstractBusniessObjectSourceLoader {
 	@Override
 	public BusniessObjectSource loadDatasource(Class<?> clz) {
 		BusniessObjectSource bos = new BusniessObjectSource();
-		process(clz, BusniessObject.class, BusniessField.class);
 		if (clz.isAnnotationPresent(BusniessObject.class)) {
 			BusniessObject annotation = clz.getAnnotation(BusniessObject.class);
 			//设置业务对象名称
