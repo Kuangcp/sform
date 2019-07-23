@@ -57,4 +57,16 @@
         ${sql}
     </select>
 
+    <select id="selectColumnsByTable" resultType="string">
+        select columns from maintable where table_name = 'student' and list = '1'
+    </select>
+
+    <select id="selectColumns" resultType="map" parameterType="list">
+        select
+        <foreach item="item" index="index" collection="list" open="" separator="," close="">
+            ${item}
+        </foreach>
+        from student
+    </select>
+
 </mapper>

@@ -46,4 +46,12 @@ public class MainController {
 		boScanner.scanPackage();
 		return null;
 	}
+
+	@GetMapping("get")
+	public void send() {
+		List<String> maps = tablesMapper.selectColumnsByTable();
+		System.out.println(maps);
+		List<Map<Object, Object>> maps1 = tablesMapper.selectColumns(maps);
+		System.out.println(maps1);
+	}
 }

@@ -26,4 +26,8 @@ public interface TablesMapper extends BaseMapper<Tables> {
 	void dropTable(@Param("tableName")String tableName);
 
 	List<Map<Object, Object>> selectByCustom(@Param("sql") String sql);
+
+	List<String> selectColumnsByTable();
+
+	List<Map<Object, Object>> selectColumns(List<String> list);
 }
