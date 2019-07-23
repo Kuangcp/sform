@@ -19,7 +19,7 @@ public class ViewObjetSourceLoader extends AbstractBusniessObjectSourceLoader {
     @Override
     public BusniessObjectSource loadBusniessObjectSource(Class<?> clz) {
         BusniessObjectSource bos = new BusniessObjectSource();
-        if (isAnnotationPresent(clz)) {
+        if (isExcludeAnnotationPresent(clz)) {
             return null;
         }
         if (clz.isAnnotationPresent(BusniessObject.class)) {
@@ -30,7 +30,7 @@ public class ViewObjetSourceLoader extends AbstractBusniessObjectSourceLoader {
             for (Field field : declaredFields) {
                 field.setAccessible(true);
                 BusniessField fieldAnnotation = field.getAnnotation(BusniessField.class);
-                if (fieldAnnotation != null && fieldAnnotation.value() != null && ! isAnnotationPresent(field)) {
+                if (fieldAnnotation != null && fieldAnnotation.value() != null && ! isExcludeAnnotationPresent(field)) {
                     bos.addField(field.getName(), fieldAnnotation.value());
                 }
             }

@@ -12,9 +12,16 @@ import java.lang.reflect.AnnotatedElement;
  */
 public abstract class AbstractBusniessObjectSourceLoader implements BusniessObjectSourceLoader {
 
+    private final Class[] annotationClass = {Exclude.class};
 
-    protected boolean isAnnotationPresent(AnnotatedElement annotatedElement) {
-        return annotatedElement.isAnnotationPresent(Exclude.class);
+    protected boolean isExcludeAnnotationPresent(AnnotatedElement annotatedElement) {
+        for (int i = 0; i < annotationClass.length; i++) {
+            if (annotatedElement.isAnnotationPresent(annotationClass[i])) {
+                return true;
+            }
+        }
+        return false;
+//        return annotatedElement.isAnnotationPresent(Exclude.class);
     }
 
 }
