@@ -8,6 +8,8 @@ package com.stackfing.sform.beans.scan;
  */
 public interface BoScanner {
 
+    void scanPackage();
+
     void scanPackage(String pkg);
 
     void scanPackages(String...pkgs);

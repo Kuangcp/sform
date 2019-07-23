@@ -18,15 +18,15 @@ public class BusniessObjectSource {
 	private String tableName;
 
 	/**
-	 * 键：属性注解名称   值：属性名称
+	 * 键：属性名称   值：注解属性
 	 */
 	private Map<String, String> fields;
 
-	public void addField(String annotationName, String fieldName) {
+	public void addField(String fieldName, String annotationName) {
 		if (fields == null) {
 			this.fields = new HashMap<>();
 		}
-		this.fields.put(annotationName, fieldName);
+		this.fields.put(fieldName, annotationName);
 	}
 
 }

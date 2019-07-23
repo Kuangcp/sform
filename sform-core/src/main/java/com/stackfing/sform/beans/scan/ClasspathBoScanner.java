@@ -5,6 +5,7 @@ import com.stackfing.sform.beans.BusniessObjectSourceLoader;
 import com.stackfing.sform.beans.BusniessObjectSourceRegistry;
 import com.stackfing.sform.beans.support.SimpleBusniessObjectSourceRegistry;
 import com.stackfing.sform.beans.support.ViewObjetSourceLoader;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -23,7 +24,28 @@ import java.util.List;
  */
 public class ClasspathBoScanner implements BoScanner {
 
-    private BusniessObjectSourceRegistry registry = new SimpleBusniessObjectSourceRegistry();
+    private BusniessObjectSourceRegistry registry;
+
+    private String scanpkg;
+
+
+    public ClasspathBoScanner(String pkg) {
+        this.scanpkg = pkg;
+        if (this.registry == null) {
+            this.registry = new SimpleBusniessObjectSourceRegistry();
+        }
+    }
+
+    @Autowired
+    public void setRegistry(BusniessObjectSourceRegistry registry) {
+        this.registry = registry;
+    }
+
+    @Override
+    public void scanPackage() {
+        scanPackage(this.scanpkg);
+    }
+
     @Override
     public void scanPackage(String pkg) {
         List<Class<?>> list = getClasssFromPackage(pkg);
@@ -31,18 +53,11 @@ public class ClasspathBoScanner implements BoScanner {
         while (iterable.hasNext()) {
             BusniessObjectSourceLoader bosloader = new ViewObjetSourceLoader();
             BusniessObjectSource busniessObjectSource = bosloader.loadBusniessObjectSource(iterable.next());
-            if (busniessObjectSource.getTableName().equals("") || busniessObjectSource.getTableName() == null) {
+            if (busniessObjectSource == null) {
                 continue;
-            } else {
-                registry.registerBusniessObjectSource(busniessObjectSource);
             }
             System.out.println(busniessObjectSource);
         }
-    }
-
-    public static void main(String[] args) {
-        ClasspathBoScanner classpathBoScanner = new ClasspathBoScanner();
-        classpathBoScanner.scanPackage("com.stackfing.sform");
     }
 
     @Override
@@ -50,7 +65,7 @@ public class ClasspathBoScanner implements BoScanner {
 
     }
 
-    void findClassInPackageByFile(String packageName, String filePath, final boolean recursive,
+    private void findClassInPackageByFile(String packageName, String filePath, final boolean recursive,
                                   List<Class<?>> clazzs) {
         File dir = new File(filePath);
         if (!dir.exists() || !dir.isDirectory()) {
@@ -80,7 +95,7 @@ public class ClasspathBoScanner implements BoScanner {
         }
     }
 
-    List<Class<?>> getClasssFromPackage(String packageName) {
+    private List<Class<?>> getClasssFromPackage(String packageName) {
         List<Class<?>> clazzs = new ArrayList<>();
         // 是否循环搜索子包
         boolean recursive = true;
