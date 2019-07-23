@@ -2,6 +2,7 @@ package com.stackfing.sform.beans;
 
 import lombok.Data;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -22,6 +23,9 @@ public class BusniessObjectSource {
 	private Map<String, String> fields;
 
 	public void addField(String annotationName, String fieldName) {
+		if (fields == null) {
+			this.fields = new HashMap<>();
+		}
 		this.fields.put(annotationName, fieldName);
 	}
 

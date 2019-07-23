@@ -16,7 +16,7 @@ import java.lang.reflect.Field;
 public class ViewObjetSourceLoader extends AbstractBusniessObjectSourceLoader {
 
 	@Override
-	public BusniessObjectSource loadDatasource(Class<?> clz) {
+	public BusniessObjectSource loadBusniessObjectSource(Class<?> clz) {
 		BusniessObjectSource bos = new BusniessObjectSource();
 		if (clz.isAnnotationPresent(BusniessObject.class)) {
 			BusniessObject annotation = clz.getAnnotation(BusniessObject.class);
@@ -26,7 +26,7 @@ public class ViewObjetSourceLoader extends AbstractBusniessObjectSourceLoader {
 			for (Field field : declaredFields) {
 				field.setAccessible(true);
 				BusniessField fieldAnnotation = field.getAnnotation(BusniessField.class);
-				if (fieldAnnotation != null) {
+				if (fieldAnnotation != null && fieldAnnotation.value() != null) {
 					bos.addField(fieldAnnotation.value(), field.getName());
 				}
 			}

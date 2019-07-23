@@ -16,7 +16,7 @@ import java.lang.reflect.Field;
 public class EntityObjectSourceLoader extends AbstractBusniessObjectSourceLoader {
 
 	@Override
-	public BusniessObjectSource loadDatasource(Class<?> clz) {
+	public BusniessObjectSource loadBusniessObjectSource(Class<?> clz) {
 		BusniessObjectSource bos = new BusniessObjectSource();
 		if (clz.isAnnotationPresent(BusniessObject.class)) {
 			BusniessObject annotation = clz.getAnnotation(BusniessObject.class);
