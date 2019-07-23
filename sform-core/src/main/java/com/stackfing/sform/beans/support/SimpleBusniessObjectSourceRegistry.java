@@ -3,6 +3,7 @@ package com.stackfing.sform.beans.support;
 import com.stackfing.sform.beans.BusniessObjectSource;
 import com.stackfing.sform.beans.BusniessObjectSourceRegistry;
 import com.stackfing.sform.beans.annotation.BusniessObject;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,6 +14,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Date: 下午7:58 19-7-22
  * @Since:
  */
+
+@Component
 public class SimpleBusniessObjectSourceRegistry implements BusniessObjectSourceRegistry {
 
 	private final Map<String, BusniessObjectSource> registry = new ConcurrentHashMap<>(16);

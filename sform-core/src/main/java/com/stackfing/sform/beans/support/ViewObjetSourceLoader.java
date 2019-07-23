@@ -4,6 +4,7 @@ import com.stackfing.sform.beans.AbstractBusniessObjectSourceLoader;
 import com.stackfing.sform.beans.BusniessObjectSource;
 import com.stackfing.sform.beans.annotation.BusniessField;
 import com.stackfing.sform.beans.annotation.BusniessObject;
+import com.stackfing.sform.beans.annotation.Exclude;
 
 import java.lang.reflect.Field;
 
@@ -15,22 +16,25 @@ import java.lang.reflect.Field;
  */
 public class ViewObjetSourceLoader extends AbstractBusniessObjectSourceLoader {
 
-	@Override
-	public BusniessObjectSource loadBusniessObjectSource(Class<?> clz) {
-		BusniessObjectSource bos = new BusniessObjectSource();
-		if (clz.isAnnotationPresent(BusniessObject.class)) {
-			BusniessObject annotation = clz.getAnnotation(BusniessObject.class);
-			//设置业务对象名称
-			bos.setTableName(annotation.value());
-			Field[] declaredFields = clz.getDeclaredFields();
-			for (Field field : declaredFields) {
-				field.setAccessible(true);
-				BusniessField fieldAnnotation = field.getAnnotation(BusniessField.class);
-				if (fieldAnnotation != null && fieldAnnotation.value() != null) {
-					bos.addField(fieldAnnotation.value(), field.getName());
-				}
-			}
-		}
-		return bos;
-	}
+    @Override
+    public BusniessObjectSource loadBusniessObjectSource(Class<?> clz) {
+        BusniessObjectSource bos = new BusniessObjectSource();
+        if (isAnnotationPresent(clz)) {
+            return null;
+        }
+        if (clz.isAnnotationPresent(BusniessObject.class)) {
+            BusniessObject annotation = clz.getAnnotation(BusniessObject.class);
+            //设置业务对象名称
+            bos.setTableName(annotation.value());
+            Field[] declaredFields = clz.getDeclaredFields();
+            for (Field field : declaredFields) {
+                field.setAccessible(true);
+                BusniessField fieldAnnotation = field.getAnnotation(BusniessField.class);
+                if (fieldAnnotation != null && fieldAnnotation.value() != null && ! isAnnotationPresent(field)) {
+                    bos.addField(field.getName(), fieldAnnotation.value());
+                }
+            }
+        }
+        return bos;
+    }
 }
