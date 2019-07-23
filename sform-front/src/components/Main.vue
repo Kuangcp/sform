@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <router-link to="/chart" replace="true">动态SQL图表</router-link>
+    <router-link to="/chart" replace>动态SQL图表</router-link>
     <h1>创建数据源</h1>
     <el-form :inline="true">
       <el-form-item label="表名">
@@ -11,6 +11,7 @@
           :index="index"
           @deleteColumn="deleteColumn"
           :column="item"
+          :key="index"
         />
       </template>
       <el-button

@@ -3,6 +3,8 @@ package com.stackfing.sform.controller;
 import com.stackfing.sform.base.Table;
 import com.stackfing.sform.base.TableCreater;
 import com.stackfing.sform.beans.BusniessObjectSource;
+import com.stackfing.sform.beans.scan.BoScanner;
+import com.stackfing.sform.beans.scan.ClasspathBoScanner;
 import com.stackfing.sform.mapper.TablesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,8 +40,10 @@ public class MainController {
 		return "创建成功！";
 	}
 
-	@GetMapping("datasources")
+	@GetMapping("getBusniessObject")
 	public List<BusniessObjectSource> getDatasources() {
+		BoScanner boScanner = new ClasspathBoScanner("com.stackfing.sform.vo");
+		boScanner.scanPackage();
 		return null;
 	}
 }
