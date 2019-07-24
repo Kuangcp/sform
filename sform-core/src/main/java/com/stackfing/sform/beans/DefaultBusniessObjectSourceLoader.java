@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Date: 下午7:18 19-7-22
  * @Since:
  */
-public class AbstractBusniessObjectSourceLoader implements BusniessObjectSourceLoader {
+public class DefaultBusniessObjectSourceLoader implements BusniessObjectSourceLoader {
 
     /**
      * 排除列表（有此标注的类、属性都不会被加载）
@@ -37,10 +37,19 @@ public class AbstractBusniessObjectSourceLoader implements BusniessObjectSourceL
         this.map.put(BusniessObject.class, ViewObjetSourceLoader.class);
     }
 
+    /**
+     * 用于新的子类注册
+     * @param clz
+     */
     protected void registerLoader(Class<?> clz) {
         this.map.put(clz, this.getClass());
     }
 
+    /**
+     * 通过查表找到对应的加载器来加载类
+     * @param clz
+     * @return
+     */
     @Override
     public BusniessObjectSource loadBusniessObjectSource(Class<?> clz) {
         Set<Class<?>> classes = map.keySet();
@@ -48,6 +57,9 @@ public class AbstractBusniessObjectSourceLoader implements BusniessObjectSourceL
         while (iterator.hasNext()) {
             Class<?> key = iterator.next();
             Class<?> target = map.get(key);
+            if (isExcludeAnnotationPresent(clz)) {
+                continue;
+            }
             //根据注解判断是否为map中存有的key  anno == key
             if (clz.isAnnotationPresent((Class<? extends Annotation>) key)) {
                 try {
@@ -71,29 +83,6 @@ public class AbstractBusniessObjectSourceLoader implements BusniessObjectSourceL
         }
         return false;
 //        return annotatedElement.isAnnotationPresent(Exclude.class);
-    }
-
-    public BusniessObjectSource selectLoader(Class<?> clz) {
-        //加个map,用来保存对应加载器 annotation 上是什么，就用什么加载
-        Set<Class<?>> classes = map.keySet();
-        Iterator<Class<?>> iterator = classes.iterator();
-        while (iterator.hasNext()) {
-            Class<?> key = iterator.next();
-            System.out.println(key);
-
-//            if (clz.equals(key)) {
-//                Class<?> target = map.get(key);
-//                try {
-//                    BusniessObjectSourceLoader o = (BusniessObjectSourceLoader) target.newInstance();
-//                    return o.loadBusniessObjectSource(clz);
-//                } catch (InstantiationException e) {
-//                    e.printStackTrace();
-//                } catch (IllegalAccessException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-        }
-        return null;
     }
 
 }

@@ -27,7 +27,7 @@ public class BusniessObjectSource {
 	 */
 	private int type;
 
-	public void addField(String fieldName, String annotationName, int type) {
+	public void addField(String fieldName, String annotationName) {
 		if (fields == null) {
 			this.fields = new HashMap<>();
 		}
