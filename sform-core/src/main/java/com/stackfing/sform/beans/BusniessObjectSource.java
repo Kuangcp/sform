@@ -22,11 +22,17 @@ public class BusniessObjectSource {
 	 */
 	private Map<String, String> fields;
 
-	public void addField(String fieldName, String annotationName) {
+	/**
+	 * 不同种类的对象，vo/entity
+	 */
+	private int type;
+
+	public void addField(String fieldName, String annotationName, int type) {
 		if (fields == null) {
 			this.fields = new HashMap<>();
 		}
 		this.fields.put(fieldName, annotationName);
+		this.type = type;
 	}
 
 }

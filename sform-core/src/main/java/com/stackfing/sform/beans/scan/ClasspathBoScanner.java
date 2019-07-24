@@ -1,5 +1,6 @@
 package com.stackfing.sform.beans.scan;
 
+import com.stackfing.sform.beans.AbstractBusniessObjectSourceLoader;
 import com.stackfing.sform.beans.BusniessObjectSource;
 import com.stackfing.sform.beans.BusniessObjectSourceLoader;
 import com.stackfing.sform.beans.BusniessObjectSourceRegistry;
@@ -51,11 +52,12 @@ public class ClasspathBoScanner implements BoScanner {
         List<Class<?>> list = getClasssFromPackage(pkg);
         Iterator<Class<?>> iterable = list.iterator();
         while (iterable.hasNext()) {
-            BusniessObjectSourceLoader bosloader = new ViewObjetSourceLoader();
+            BusniessObjectSourceLoader bosloader = new AbstractBusniessObjectSourceLoader();
             BusniessObjectSource busniessObjectSource = bosloader.loadBusniessObjectSource(iterable.next());
             if (busniessObjectSource == null) {
                 continue;
             }
+            registry.registerBusniessObjectSource(busniessObjectSource);
             System.out.println(busniessObjectSource);
         }
     }

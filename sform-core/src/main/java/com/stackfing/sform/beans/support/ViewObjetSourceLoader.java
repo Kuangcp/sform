@@ -4,7 +4,7 @@ import com.stackfing.sform.beans.AbstractBusniessObjectSourceLoader;
 import com.stackfing.sform.beans.BusniessObjectSource;
 import com.stackfing.sform.beans.annotation.BusniessField;
 import com.stackfing.sform.beans.annotation.BusniessObject;
-import com.stackfing.sform.beans.annotation.Exclude;
+import com.stackfing.sform.beans.enums.BoType;
 
 import java.lang.reflect.Field;
 
@@ -31,7 +31,7 @@ public class ViewObjetSourceLoader extends AbstractBusniessObjectSourceLoader {
                 field.setAccessible(true);
                 BusniessField fieldAnnotation = field.getAnnotation(BusniessField.class);
                 if (fieldAnnotation != null && fieldAnnotation.value() != null && ! isExcludeAnnotationPresent(field)) {
-                    bos.addField(field.getName(), fieldAnnotation.value());
+                    bos.addField(field.getName(), fieldAnnotation.value(), BoType.VO.getType());
                 }
             }
         }
