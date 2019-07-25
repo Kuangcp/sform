@@ -7,7 +7,7 @@
       >{{widget.name}}</el-input>
     </template>
     <template v-if="widget.type == 'button'">
-      <el-button :disabled="widget.disable">{{widget.defaultValue}}</el-button>
+      <el-button @click="hander" :disabled="widget.disable">{{widget.defaultValue}}</el-button>
     </template>
     <template v-if="widget.type == 'select'">
       <el-select
@@ -48,6 +48,11 @@ export default {
       this.axios.get(this.widget.options.remoteUrl).then(res=>{
           this.widget.options.remoteOption = res.data
       })
+  },
+  methods: {
+      hander() {
+          eval(this.widget.options.callback)
+      }
   }
 };
 </script>

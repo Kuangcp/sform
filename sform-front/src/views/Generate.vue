@@ -53,11 +53,13 @@ export default {
           {
             type: "button",
             name: "按钮",
-            defaultValue: "asdd",
-            disable: true,
+            defaultValue: "就是一个按钮",
+            disable: false,
             placeholder: "",
             post: false,
-            options: {}
+            options: {
+                callback: 'this.axios.get("http://localhost:8080/getAllOptions").then(res=>{console.log(res.data)})'
+            }
           }
         ],
         config: {
