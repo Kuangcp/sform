@@ -2,8 +2,8 @@
   <div>
     <router-link to="/">首页</router-link>
     <el-form>
-      <template v-for="item in json.list">
-        <widgetitem :widget="item" />
+      <template v-for="(item,index) in json.list">
+        <widgetitem :widget="item" :key="index" />
       </template>
     </el-form>
     <el-button @click="getJson">获取json</el-button>
@@ -54,10 +54,12 @@ export default {
             type: "button",
             name: "按钮",
             defaultValue: "asdd",
-            disable: true,
+            disable: false,
             placeholder: "",
             post: false,
-            options: {}
+            options: {
+              callback: 'console.log("content")'
+            }
           }
         ],
         config: {
@@ -95,8 +97,42 @@ export default {
         });
     }
   },
-  created() {},
+  created() {
+  //保存表单配置json的时候需要将json格式化
+  // console.log(JSON.stringify(this.json))
+  //   const str = '{"name":"123"}'
+  //   console.log(JSON.parse(str))
+  //   this.axios.get('http://localhost:8080/getFormByName/' + 'student1').then(res=>{
+  //     const obj = {}
+  //     obj.config = res.data.config
+  //     obj.list = res.data.list
+  //     this.json = obj;
+  //   })
+  },
   mounted() {
+  },
+  computed: {
+    newList() {
+      return this.json
+    }
+  },
+  watch: {
+    json: {
+      handler(val, oldval) {
+        var that = this;
+        // console.log(this.json.list)
+        for(var i =0;i<this.json.list.length;i++) {
+            var lst = this.json.list[i]
+            var obj = {}
+            if(lst.post == false) {
+                continue;
+            }
+            console.log('sdff')
+            this.values[lst.name] = lst.defaultValue
+        }
+      },
+      deep: true
+    }
   }
 };
 </script>
