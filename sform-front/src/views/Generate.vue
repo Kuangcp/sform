@@ -1,9 +1,9 @@
 <template>
   <div>
     <router-link to="/">首页</router-link>
-    <el-form>
+    <el-form :model="values">
       <template v-for="(item,index) in json.list">
-        <widgetitem :widget="item" :key="index" />
+        <widgetitem :widget="item" :key="index" :values="values" />
       </template>
     </el-form>
     <el-button @click="getJson">获取json</el-button>
@@ -52,13 +52,14 @@ export default {
           },
           {
             type: "button",
-            name: "按钮",
+            name: "提交按钮",
             defaultValue: "asdd",
             disable: false,
             placeholder: "",
             post: false,
             options: {
-              callback: 'console.log("content")'
+              //客户端必须使用this.values来获取表单数据
+              callback: 'console.log(this.values)'
             }
           }
         ],
@@ -66,7 +67,9 @@ export default {
           labelWidth: 100,
           labelPosition: "right",
           size: "small",
-          customClass: ""
+          customClass: "",
+          addUrl: '',
+          editUrl: '',
         }
       },
       values: {}
@@ -77,24 +80,25 @@ export default {
       console.log(this.list);
     },
     getJson() {
-        var that = this;
-        console.log(this.json.list)
-        for(var i =0;i<this.json.list.length;i++) {
-            var lst = this.json.list[i]
-            var obj = {}
-            if(lst.post == false) {
-                continue;
-            }
-            this.values[lst.name] = lst.defaultValue
-        }
+        // var that = this;
+        // console.log(this.json.list)
+        // for(var i =0;i<this.json.list.length;i++) {
+        //     var lst = this.json.list[i]
+        //     var obj = {}
+        //     if(lst.post == false) {
+        //         continue;
+        //     }
+        //     this.values[lst.name] = lst.defaultValue
+        // }
         
+        // console.log(this.values)
+        // this.$alert(this.values, '提交的json数据', {
+        //   confirmButtonText: '确定',
+        //   callback: action => {
+        //     this.values = {};
+        //   }
+        // });
         console.log(this.values)
-        this.$alert(this.values, '提交的json数据', {
-          confirmButtonText: '确定',
-          callback: action => {
-            this.values = {};
-          }
-        });
     }
   },
   created() {
@@ -112,27 +116,30 @@ export default {
   mounted() {
   },
   computed: {
-    newList() {
-      return this.json
-    }
+    // newList() {
+    //   return this.json
+    // }
   },
   watch: {
-    json: {
+    values: {
       handler(val, oldval) {
-        var that = this;
-        // console.log(this.json.list)
-        for(var i =0;i<this.json.list.length;i++) {
-            var lst = this.json.list[i]
-            var obj = {}
-            if(lst.post == false) {
-                continue;
-            }
-            console.log('sdff')
-            this.values[lst.name] = lst.defaultValue
-        }
-      },
-      deep: true
+        this.values = val;
+      },deep: true
     }
+    // json: {
+    //   handler(val, oldval) {
+    //     var that = this;
+    //     for(var i =0;i<this.json.list.length;i++) {
+    //         var lst = this.json.list[i]
+    //         var obj = {}
+    //         if(lst.post == false) {
+    //             continue;
+    //         }
+    //         this.values[lst.name] = lst.defaultValue
+    //     }
+    //   },
+    //   deep: true
+    // }
   }
 };
 </script>

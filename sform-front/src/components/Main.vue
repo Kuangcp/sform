@@ -90,7 +90,7 @@ export default {
         columns: this.columns
       };
       this.postbuttonstatus = true;
-      this.axios
+      axios
         .post("http://localhost:8080/createTable", s)
         .then(res => {})
         .catch(error => {});

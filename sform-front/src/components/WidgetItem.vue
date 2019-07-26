@@ -3,15 +3,15 @@
     <template v-if="widget.type == 'input'">
       <el-input
         :disabled="widget.disable"
-        v-model="widget.defaultValue"
-      >{{widget.name}}</el-input>
+        v-model="values[widget.name]"
+      >{{widget.defaultValue}}</el-input>
     </template>
     <template v-if="widget.type == 'button'">
-      <el-button @click="callback" :disabled="widget.disable">{{widget.defaultValue}}</el-button>
+      <el-button @click="callback" :disabled="widget.disable">{{widget.name}}</el-button>
     </template>
     <template v-if="widget.type == 'select'">
       <el-select
-        v-model="widget.defaultValue"
+        v-model="values[widget.name]"
         :placeholder="widget.placeholder"
       >
         <el-option
@@ -37,7 +37,7 @@
 
 <script>
 export default {
-  props: ["widget"],
+  props: ["widget", "values"],
   data() {
     return {
         
