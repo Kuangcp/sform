@@ -4,7 +4,7 @@
       <el-input :disabled="widget.disable" v-model="values[widget.name]">{{widget.defaultValue}}</el-input>
     </template>
     <template v-if="widget.type == 'button'">
-      <el-button @click="callback" :disabled="widget.disable">{{widget.name}}</el-button>
+      <el-button @click="handlerClickButton" :disabled="widget.disable">{{widget.name}}</el-button>
     </template>
     <template v-if="widget.type == 'select'">
       <el-select v-model="values[widget.name]" :placeholder="widget.placeholder">
@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  props: ["widget", "values"],
+  props: ["widget", "values", "parent"],
   data() {
     return {
       remoteSelectOptions: [],
@@ -38,10 +38,15 @@ export default {
     };
   },
   created() {
+    //可以用parent.json做表单校验规则
+    console.log(this.parent.json)
     this.getData();
+    if(this.widget.created) {
+      eval(this.widget.created)
+    }
   },
   methods: {
-    callback() {
+    handlerClickButton() {
       eval(this.widget.options.callback);
     },
     getData() {

@@ -88,4 +88,9 @@ public class MainController {
 //			return result;
 //		} else return null;
 	}
+
+	@GetMapping("getAllForm")
+	public List<String> getAllForm() {
+		return formMapper.selectAllForm();
+	}
 }

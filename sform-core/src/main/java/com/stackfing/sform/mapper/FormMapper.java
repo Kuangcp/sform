@@ -2,6 +2,8 @@ package com.stackfing.sform.mapper;
 
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @Author: fing
  * @Description:
@@ -11,5 +13,7 @@ import org.apache.ibatis.annotations.Param;
 public interface FormMapper {
 
     String selectFormByName(@Param("formname") String formname);
+
+    List<String> selectAllForm();
 
 }

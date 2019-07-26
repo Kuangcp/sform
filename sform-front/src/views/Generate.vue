@@ -1,12 +1,17 @@
 <template>
   <div>
     <router-link to="/">首页</router-link>
+    <div>
+      样例表单
+      <div v-for="(item,index) in forms" :key="index" @click="getFormByName(item)">{{item}}</div>
+    </div>
+
     <el-form :model="values">
       <template v-for="(item,index) in json.list">
-        <widgetitem :widget="item" :key="index" :values="values" />
+        <widgetitem :widget="item" :key="index" :values="values" :parent="parent" />
       </template>
     </el-form>
-    <el-button @click="getJson">获取json</el-button>
+    <el-button @click="getJson" type="primary" style="margin-top: 30px">获取设计表单JSON</el-button>
   </div>
 </template>
 
@@ -19,17 +24,18 @@ export default {
       json: {
         list: [
           {
-            type: 'radio-gruop',
-            name: 'sex',
-            label: '性别选择',
+            type: "radio-gruop",
+            name: "sex",
+            label: "性别选择",
+            created: 'console.log(this.widget)',
             options: {
               remote: true,
-              remoteUrl: 'http://localhost:8080/getAllOptions',
+              remoteUrl: "http://localhost:8080/getAllOptions",
               option: [
                 {
                   label: "选项1",
                   value: "1"
-                },
+                }
               ],
               remoteOption: []
             }
@@ -39,7 +45,7 @@ export default {
             name: "category",
             defaultValue: "",
             disable: true,
-            label: '性别',
+            label: "性别",
             placeholder: "请选择数据哦",
             options: {
               remote: true,
@@ -62,7 +68,7 @@ export default {
           {
             type: "input",
             name: "age",
-            label: '年龄',
+            label: "年龄",
             defaultValue: "",
             disable: false,
             placeholder: "",
@@ -77,7 +83,8 @@ export default {
             post: false,
             options: {
               //客户端必须使用this.values来获取表单数据
-              callback: "this.axios.post('http://localhost:8888/posta', this.values).then(res=>{console.log(res)})"
+              callback:
+                "this.axios.post('http://localhost:8888/posta', this.values).then(res=>{console.log(res)})"
             }
           }
         ],
@@ -90,31 +97,40 @@ export default {
           editUrl: ""
         }
       },
-      values: {}
+      values: {},
+      forms: [],
+      parent: this
     };
   },
   methods: {
-    
+    getAllForm() {
+      this.axios("http://localhost:8080/getAllForm").then(res => {
+        this.forms = res.data;
+      });
+    },
     getJson() {
-      this.$alert(this.values, "提交的json数据", {
+      this.$alert(JSON.stringify(this.json), "获取设计表单JSON", {
         confirmButtonText: "确定",
         callback: action => {
-          this.values = {};
+          // this.values = {};
         }
       });
       console.log(this.values);
+    },
+    getFormByName(name) {
+      this.axios
+        .get("http://localhost:8080/getFormByName/" + name)
+        .then(res => {
+          const obj = {};
+          obj.config = res.data.config;
+          obj.list = res.data.list;
+          this.json = obj;
+        });
     }
   },
   created() {
+    // this.getAllForm();
     //保存表单配置json的时候需要将json格式化
-    // this.axios
-    //   .get("http://localhost:8080/getFormByName/" + "student1")
-    //   .then(res => {
-    //     const obj = {};
-    //     obj.config = res.data.config;
-    //     obj.list = res.data.list;
-    //     this.json = obj;
-    //   });
   }
 };
 </script>
