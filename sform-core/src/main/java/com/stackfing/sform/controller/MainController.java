@@ -6,9 +6,12 @@ import com.stackfing.sform.beans.BusniessObjectSource;
 import com.stackfing.sform.beans.scan.BoScanner;
 import com.stackfing.sform.beans.scan.ClasspathBoScanner;
 import com.stackfing.sform.mapper.TablesMapper;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -53,5 +56,21 @@ public class MainController {
 		System.out.println(maps);
 		List<Map<Object, Object>> maps1 = tablesMapper.selectColumns(maps);
 		System.out.println(maps1);
+	}
+
+	@GetMapping("getAllOptions")
+	public List<Options> alloptions() {
+		Options options = new Options("1", "第一个");
+		Options options1 = new Options("2", "第二个");
+		List<Options> list = new ArrayList<>();
+		list.add(options);
+		list.add(options1);
+		return list;
+	}
+	@Data
+	@AllArgsConstructor
+	class Options {
+		private String value;
+		private String label;
 	}
 }

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/components/Main'
 import Charts from '@/views/Chart'
+import Generate from '@/views/Generate'
 
 Vue.use(Router)
 
@@ -16,6 +17,11 @@ export default new Router({
       path: '/chart',
       name: 'Charts',
       component: Charts
+    },
+    {
+      path: '/generate',
+      name: 'generate',
+      component: Generate
     }
   ]
 })
