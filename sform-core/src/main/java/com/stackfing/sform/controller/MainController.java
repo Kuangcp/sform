@@ -62,8 +62,8 @@ public class MainController {
 
 	@GetMapping("getAllOptions")
 	public List<Options> alloptions() {
-		Options options = new Options("1", "第一个");
-		Options options1 = new Options("2", "第二个");
+		Options options = new Options("1", "男生");
+		Options options1 = new Options("2", "女生");
 		List<Options> list = new ArrayList<>();
 		list.add(options);
 		list.add(options1);

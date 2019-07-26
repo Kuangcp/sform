@@ -1,35 +1,19 @@
 <template>
-  <el-form-item>
+  <el-form-item :label="widget.label">
     <template v-if="widget.type == 'input'">
-      <el-input
-        :disabled="widget.disable"
-        v-model="values[widget.name]"
-      >{{widget.defaultValue}}</el-input>
+      <el-input :disabled="widget.disable" v-model="values[widget.name]">{{widget.defaultValue}}</el-input>
     </template>
     <template v-if="widget.type == 'button'">
       <el-button @click="callback" :disabled="widget.disable">{{widget.name}}</el-button>
     </template>
     <template v-if="widget.type == 'select'">
-      <el-select
-        v-model="values[widget.name]"
-        :placeholder="widget.placeholder"
-      >
+      <el-select v-model="values[widget.name]" :placeholder="widget.placeholder">
         <el-option
-          v-for="i in (widget.options.remote==true) ? widget.options.remoteOption : widget.options.option"
-          :key='i.value'
-          :value='i.value'
-          :label='i.label'
-        >
-        </el-option>
-        <!-- <el-option v-for="i in [{value: '1', label: '123123'}]" value="value">
-        </el-option> -->
-        <!-- <el-option
-            v-for="(i,index) in (item.options.remote == true ? [{label: "远程数据",value: "1"}]:i.options.option)"
-            :key="index"
-            :label="i.options.label"
-            :value="i.options.value"
-          >
-          </el-option> -->
+          v-for="item in ((widget.options.remote==true) ? remoteSelectOptions : widget.options.option)"
+          :label="item.label"
+          :value="item.value"
+          :key="item.value"
+        ></el-option>
       </el-select>
     </template>
   </el-form-item>
@@ -40,18 +24,23 @@ export default {
   props: ["widget", "values"],
   data() {
     return {
-        
+      remoteSelectOptions: []
     };
   },
   created() {
-      console.log('asdfdsf')
-      this.axios.get(this.widget.options.remoteUrl).then(res=>{
-          this.widget.options.remoteOption = res.data
-      })
+    // this.getData();
   },
   methods: {
     callback() {
-      eval(this.widget.options.callback)
+      eval(this.widget.options.callback);
+    },
+    getData() {
+      if (this.widget.type == "select") {
+        this.axios.get(this.widget.options.remoteUrl).then(res => {
+          this.remoteSelectOptions = res.data
+          this.widget.options.remoteOption = res.data;
+        });
+      }
     }
   }
 };

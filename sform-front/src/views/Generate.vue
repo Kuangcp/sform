@@ -23,9 +23,10 @@ export default {
             name: "sex",
             defaultValue: "",
             disable: true,
+            label: '性别',
             placeholder: "请选择数据哦",
             options: {
-              remote: true,
+              remote: false,
               remoteUrl: "http://localhost:8080/getAllOptions",
               label: "label",
               value: "value",
@@ -45,6 +46,7 @@ export default {
           {
             type: "input",
             name: "age",
+            label: '年龄',
             defaultValue: "",
             disable: false,
             placeholder: "",
@@ -59,7 +61,7 @@ export default {
             post: false,
             options: {
               //客户端必须使用this.values来获取表单数据
-              callback: 'console.log(this.values)'
+              callback: "alert(this.values)"
             }
           }
         ],
@@ -68,8 +70,8 @@ export default {
           labelPosition: "right",
           size: "small",
           customClass: "",
-          addUrl: '',
-          editUrl: '',
+          addUrl: "",
+          editUrl: ""
         }
       },
       values: {}
@@ -77,69 +79,30 @@ export default {
   },
   methods: {
     handler() {
-      console.log(this.list);
+      console.log(JSON.stringify(this.json));
+      ;
     },
     getJson() {
-        // var that = this;
-        // console.log(this.json.list)
-        // for(var i =0;i<this.json.list.length;i++) {
-        //     var lst = this.json.list[i]
-        //     var obj = {}
-        //     if(lst.post == false) {
-        //         continue;
-        //     }
-        //     this.values[lst.name] = lst.defaultValue
-        // }
-        
-        // console.log(this.values)
-        // this.$alert(this.values, '提交的json数据', {
-        //   confirmButtonText: '确定',
-        //   callback: action => {
-        //     this.values = {};
-        //   }
-        // });
-        console.log(this.values)
+      this.$alert(this.values, "提交的json数据", {
+        confirmButtonText: "确定",
+        callback: action => {
+          this.values = {};
+        }
+      });
+      console.log(this.values);
     }
   },
   created() {
-  //保存表单配置json的时候需要将json格式化
-  // console.log(JSON.stringify(this.json))
-  //   const str = '{"name":"123"}'
-  //   console.log(JSON.parse(str))
-  //   this.axios.get('http://localhost:8080/getFormByName/' + 'student1').then(res=>{
-  //     const obj = {}
-  //     obj.config = res.data.config
-  //     obj.list = res.data.list
-  //     this.json = obj;
-  //   })
-  },
-  mounted() {
-  },
-  computed: {
-    // newList() {
-    //   return this.json
-    // }
-  },
-  watch: {
-    values: {
-      handler(val, oldval) {
-        this.values = val;
-      },deep: true
-    }
-    // json: {
-    //   handler(val, oldval) {
-    //     var that = this;
-    //     for(var i =0;i<this.json.list.length;i++) {
-    //         var lst = this.json.list[i]
-    //         var obj = {}
-    //         if(lst.post == false) {
-    //             continue;
-    //         }
-    //         this.values[lst.name] = lst.defaultValue
-    //     }
-    //   },
-    //   deep: true
-    // }
+    //保存表单配置json的时候需要将json格式化
+    this.handler()
+    // this.axios
+    //   .get("http://localhost:8080/getFormByName/" + "student1")
+    //   .then(res => {
+    //     const obj = {};
+    //     obj.config = res.data.config;
+    //     obj.list = res.data.list;
+    //     this.json = obj;
+    //   });
   }
 };
 </script>

@@ -8,17 +8,9 @@
         <el-input v-model="tableName"></el-input>
       </el-form-item>
       <template v-for="(item,index) in columns">
-        <column
-          :index="index"
-          @deleteColumn="deleteColumn"
-          :column="item"
-          :key="index"
-        />
+        <column :index="index" @deleteColumn="deleteColumn" :column="item" :key="index" />
       </template>
-      <el-button
-        type="success"
-        @click="addColumn"
-      >添加表单</el-button>
+      <el-button type="success" @click="addColumn">添加表单</el-button>
       <el-button
         style="margin-top: 30px"
         @click="createTableHandler"
@@ -49,7 +41,7 @@ export default {
         }
       ],
       tableName: "",
-     
+
       options: [
         {
           label: "数字类型(int)",
@@ -67,7 +59,6 @@ export default {
     };
   },
   methods: {
-    
     deleteColumn(index) {
       if (this.columns.length > 1) {
         this.columns.splice(index, 1);
@@ -98,8 +89,7 @@ export default {
     }
   },
   created() {},
-  mounted() {
-  }
+  mounted() {}
 };
 </script>
 
@@ -125,7 +115,6 @@ a :visited {
 }
 a :link {
   color: #42b983;
-
 }
 .hello {
   /* width: 500px; */
