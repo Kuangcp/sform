@@ -16,6 +16,15 @@
         ></el-option>
       </el-select>
     </template>
+    <template v-if="widget.type == 'radio-gruop'">
+      <el-radio-group v-model="values[widget.name]">
+        <el-radio
+          v-for="item in (widget.options.remote == true) ? remoteRadioOptions : widget.options.option"
+          :key="item.value"
+          :label="item.label"
+        >{{item.label}}</el-radio>
+      </el-radio-group>
+    </template>
   </el-form-item>
 </template>
 
@@ -24,11 +33,12 @@ export default {
   props: ["widget", "values"],
   data() {
     return {
-      remoteSelectOptions: []
+      remoteSelectOptions: [],
+      remoteRadioOptions: []
     };
   },
   created() {
-    // this.getData();
+    this.getData();
   },
   methods: {
     callback() {
@@ -37,7 +47,14 @@ export default {
     getData() {
       if (this.widget.type == "select") {
         this.axios.get(this.widget.options.remoteUrl).then(res => {
-          this.remoteSelectOptions = res.data
+          this.remoteSelectOptions = res.data;
+          this.widget.options.remoteOption = res.data;
+        });
+      }
+
+      if (this.widget.type == "radio-gruop") {
+        this.axios.get(this.widget.options.remoteUrl).then(res => {
+          this.remoteRadioOptions = res.data;
           this.widget.options.remoteOption = res.data;
         });
       }
