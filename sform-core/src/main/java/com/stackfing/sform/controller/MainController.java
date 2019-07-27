@@ -5,6 +5,7 @@ import com.stackfing.sform.base.TableCreater;
 import com.stackfing.sform.beans.BusniessObjectSource;
 import com.stackfing.sform.beans.scan.BoScanner;
 import com.stackfing.sform.beans.scan.ClasspathBoScanner;
+import com.stackfing.sform.mapper.FormMapper;
 import com.stackfing.sform.mapper.TablesMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -72,5 +74,18 @@ public class MainController {
 	class Options {
 		private String value;
 		private String label;
+	}
+
+	@Autowired
+	private FormMapper formMapper;
+
+	@GetMapping("getFormByName/{name}")
+	public String getForm(@PathVariable String name) {
+		String s = formMapper.selectFormByName(name);
+		return s;
+//		String result = "{\"list\":[{\"type\":\"select\",\"name\":\"sex\",\"defaultValue\":\"\",\"disable\":true,\"placeholder\":\"请选择数据哦\",\"options\":{\"remote\":true,\"remoteUrl\":\"http://localhost:8080/getAllOptions\",\"label\":\"label\",\"value\":\"value\",\"remoteOption\":[],\"option\":[{\"label\":\"选项二\",\"value\":\"2\"},{\"label\":\"选项一\",\"value\":\"1\"}]}},{\"type\":\"input\",\"name\":\"age\",\"defaultValue\":\"\",\"disable\":false,\"placeholder\":\"\",\"options\":{}},{\"type\":\"button\",\"name\":\"按钮\",\"defaultValue\":\"asdd\",\"disable\":false,\"placeholder\":\"\",\"post\":false,\"options\":{\"callback\":\"alert(\\\"asdf\\\")\"}}],\"config\":{\"labelWidth\":100,\"labelPosition\":\"right\",\"size\":\"small\",\"customClass\":\"\"}}";
+//		if (name.equals("buttonForm")) {
+//			return result;
+//		} else return null;
 	}
 }
