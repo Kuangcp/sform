@@ -8,4 +8,8 @@
         SELECT json_value FROM forms WHERE form_name = #{formname}
     </select>
 
+    <select id="selectAllForm" resultType="string">
+        select form_name from forms
+    </select>
+
 </mapper>
