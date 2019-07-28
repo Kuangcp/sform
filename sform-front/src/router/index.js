@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Main from '@/components/Main'
 import Charts from '@/views/Chart'
 import Generate from '@/views/Generate'
+import Student from '@/views/Student'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/generate',
       name: 'generate',
       component: Generate
+    },
+    {
+      path: '/student',
+      name: 'student',
+      component: Student
     }
   ]
 })

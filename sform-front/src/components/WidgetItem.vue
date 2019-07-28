@@ -1,7 +1,7 @@
 <template>
   <el-form-item :label="widget.label">
     <template v-if="widget.type == 'input'">
-      <el-input :disabled="widget.disable" v-model="values[widget.name]">{{widget.defaultValue}}</el-input>
+      <el-input ref="lzq" :disabled="widget.disable" v-model="values[widget.name]">{{widget.defaultValue}}</el-input>
     </template>
     <template v-if="widget.type == 'button'">
       <el-button @click="handlerClickButton" :disabled="widget.disable">{{widget.name}}</el-button>
@@ -37,9 +37,16 @@ export default {
       remoteRadioOptions: []
     };
   },
+  mounted() {
+    if(this.$refs.lzq) {
+      console.log(this.$refs.lzq.value)
+      this.$refs.lzq.values = 1
+      this.$refs.lzq.disable=false
+    }
+  },
   created() {
     //可以用parent.json做表单校验规则
-    console.log(this.parent.json)
+    // console.log(this.parent.json)
     this.getData();
     if(this.widget.created) {
       eval(this.widget.created)
