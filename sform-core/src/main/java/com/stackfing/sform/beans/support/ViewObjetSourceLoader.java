@@ -1,7 +1,7 @@
 package com.stackfing.sform.beans.support;
 
-import com.stackfing.sform.beans.DefaultBusniessObjectSourceLoader;
-import com.stackfing.sform.beans.BusniessObjectSource;
+import com.stackfing.sform.beans.DefaultBusinessObjectSourceLoader;
+import com.stackfing.sform.beans.BusinessObjectSource;
 import com.stackfing.sform.beans.annotation.BusniessField;
 import com.stackfing.sform.beans.annotation.BusniessObject;
 import com.stackfing.sform.beans.enums.BoType;
@@ -14,11 +14,11 @@ import java.lang.reflect.Field;
  * @Date: 下午7:51 19-7-22
  * @Since:
  */
-public class ViewObjetSourceLoader extends DefaultBusniessObjectSourceLoader {
+public class ViewObjetSourceLoader extends DefaultBusinessObjectSourceLoader {
 
     @Override
-    public BusniessObjectSource loadBusniessObjectSource(Class<?> clz) {
-        BusniessObjectSource bos = new BusniessObjectSource();
+    public BusinessObjectSource loadBusniessObjectSource(Class<?> clz) {
+        BusinessObjectSource bos = new BusinessObjectSource();
         if (clz.isAnnotationPresent(BusniessObject.class)) {
             BusniessObject annotation = clz.getAnnotation(BusniessObject.class);
             //设置业务对象名称

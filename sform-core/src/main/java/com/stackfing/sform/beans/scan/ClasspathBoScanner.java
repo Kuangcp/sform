@@ -1,20 +1,18 @@
 package com.stackfing.sform.beans.scan;
 
-import com.stackfing.sform.beans.DefaultBusniessObjectSourceLoader;
-import com.stackfing.sform.beans.BusniessObjectSource;
+import com.stackfing.sform.beans.BusinessObjectSource;
 import com.stackfing.sform.beans.BusniessObjectSourceLoader;
 import com.stackfing.sform.beans.BusniessObjectSourceRegistry;
+import com.stackfing.sform.beans.DefaultBusinessObjectSourceLoader;
 import com.stackfing.sform.beans.support.SimpleBusniessObjectSourceRegistry;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.io.File;
-import java.io.FileFilter;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @Author: fing
@@ -31,6 +29,7 @@ public class ClasspathBoScanner implements BoScanner {
 
     public ClasspathBoScanner(String pkg) {
         this.scanpkg = pkg;
+        // TODO ?
         if (this.registry == null) {
             this.registry = new SimpleBusniessObjectSourceRegistry();
         }
@@ -49,15 +48,14 @@ public class ClasspathBoScanner implements BoScanner {
     @Override
     public void scanPackage(String pkg) {
         List<Class<?>> list = getClasssFromPackage(pkg);
-        Iterator<Class<?>> iterable = list.iterator();
-        while (iterable.hasNext()) {
-            BusniessObjectSourceLoader bosloader = new DefaultBusniessObjectSourceLoader();
-            BusniessObjectSource busniessObjectSource = bosloader.loadBusniessObjectSource(iterable.next());
-            if (busniessObjectSource == null) {
+        for (Class<?> aClass : list) {
+            BusniessObjectSourceLoader loader = new DefaultBusinessObjectSourceLoader();
+            BusinessObjectSource businessObjectSource = loader.loadBusniessObjectSource(aClass);
+            if (businessObjectSource == null) {
                 continue;
             }
-            registry.registerBusniessObjectSource(busniessObjectSource);
-            System.out.println(busniessObjectSource);
+            registry.registerBusniessObjectSource(businessObjectSource);
+            System.out.println(businessObjectSource);
         }
     }
 
@@ -73,15 +71,15 @@ public class ClasspathBoScanner implements BoScanner {
             return;
         }
         // 在给定的目录下找到所有的文件，并且进行条件过滤
-        File[] dirFiles = dir.listFiles(new FileFilter() {
-
-            public boolean accept(File file) {
-                boolean acceptDir = recursive && file.isDirectory();// 接受dir目录
-                boolean acceptClass = file.getName().endsWith("class");// 接受class文件
-                return acceptDir || acceptClass;
-            }
+        File[] dirFiles = dir.listFiles(file -> {
+            boolean acceptDir = recursive && file.isDirectory();// 接受dir目录
+            boolean acceptClass = file.getName().endsWith("class");// 接受class文件
+            return acceptDir || acceptClass;
         });
 
+        if (Objects.isNull(dirFiles)) {
+            return;
+        }
         for (File file : dirFiles) {
             if (file.isDirectory()) {
                 findClassInPackageByFile(packageName + "." + file.getName(), file.getAbsolutePath(), recursive, clazzs);
@@ -113,6 +111,7 @@ public class ClasspathBoScanner implements BoScanner {
 
                 if ("file".equals(protocol)) {
                     String filePath = URLDecoder.decode(url.getFile(), "UTF-8");
+                    // TODO recursive always true
                     findClassInPackageByFile(packageName, filePath, recursive, clazzs);
                 }
             }

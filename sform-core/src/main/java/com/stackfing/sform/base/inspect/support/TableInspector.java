@@ -7,6 +7,7 @@ import com.stackfing.sform.base.inspect.AbstractInspector;
 import com.stackfing.sform.exception.TableException;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * @Author: fing
@@ -14,6 +15,8 @@ import java.util.List;
  * @Date: 下午6:13 19-7-20
  */
 public class TableInspector extends AbstractInspector<Table> {
+	private static final Pattern compile = Pattern.compile("[0-9]+");
+
 	@Override
 	public void inspect(Table table) {
 		if (isDigit(table.getTableName())) {
@@ -23,6 +26,7 @@ public class TableInspector extends AbstractInspector<Table> {
 		int size = 0;
 		for (Column column : columns) {
 			if (column.getAutoIncrement() != null && column.getPrimary() != null) {
+				// TODO NPE
 				if (column.getAutoIncrement() == true && column.getPrimary() == false) {
 					throw new RuntimeException("列名：" + column.getName() + " 必须为 key！");
 				}
@@ -37,6 +41,6 @@ public class TableInspector extends AbstractInspector<Table> {
 	}
 
 	private boolean isDigit(String str) {
-		return str.matches("[0-9]+");
+		return  compile.matcher(str).find();
 	}
 }

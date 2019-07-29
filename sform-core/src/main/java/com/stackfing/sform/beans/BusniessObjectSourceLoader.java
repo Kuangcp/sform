@@ -8,6 +8,6 @@ package com.stackfing.sform.beans;
  */
 public interface BusniessObjectSourceLoader {
 
-	BusniessObjectSource loadBusniessObjectSource(Class<?> clz);
+	BusinessObjectSource loadBusniessObjectSource(Class<?> clz);
 
 }

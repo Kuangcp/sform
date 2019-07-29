@@ -13,7 +13,7 @@ import java.util.Map;
  */
 
 @Data
-public class BusniessObjectSource {
+public class BusinessObjectSource {
 
 	private String tableName;
 
@@ -32,6 +32,7 @@ public class BusniessObjectSource {
 			this.fields = new HashMap<>();
 		}
 		this.fields.put(fieldName, annotationName);
+		// TODO ?
 		this.type = type;
 	}
 

@@ -2,20 +2,24 @@ package com.stackfing.sform.controller;
 
 import com.stackfing.sform.base.Table;
 import com.stackfing.sform.base.TableCreater;
-import com.stackfing.sform.beans.BusniessObjectSource;
+import com.stackfing.sform.beans.BusinessObjectSource;
 import com.stackfing.sform.beans.scan.BoScanner;
 import com.stackfing.sform.beans.scan.ClasspathBoScanner;
 import com.stackfing.sform.mapper.FormMapper;
 import com.stackfing.sform.mapper.TablesMapper;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @Author: fing
@@ -46,7 +50,7 @@ public class MainController {
 	}
 
 	@GetMapping("getBusniessObject")
-	public List<BusniessObjectSource> getDatasources() {
+	public List<BusinessObjectSource> getDataSource() {
 		BoScanner boScanner = new ClasspathBoScanner("com.stackfing.sform.vo");
 		boScanner.scanPackage();
 		return null;

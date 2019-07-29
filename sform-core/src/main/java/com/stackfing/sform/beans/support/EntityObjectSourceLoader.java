@@ -1,8 +1,8 @@
 package com.stackfing.sform.beans.support;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.stackfing.sform.beans.DefaultBusniessObjectSourceLoader;
-import com.stackfing.sform.beans.BusniessObjectSource;
+import com.stackfing.sform.beans.DefaultBusinessObjectSourceLoader;
+import com.stackfing.sform.beans.BusinessObjectSource;
 import com.stackfing.sform.beans.enums.BoType;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -14,12 +14,12 @@ import java.lang.reflect.Field;
  * @Date: 下午7:52 19-7-22
  * @Since:
  */
-public class EntityObjectSourceLoader extends DefaultBusniessObjectSourceLoader {
+public class EntityObjectSourceLoader extends DefaultBusinessObjectSourceLoader {
 
 
 	@Override
-	public BusniessObjectSource loadBusniessObjectSource(Class<?> clz) {
-		BusniessObjectSource bos = new BusniessObjectSource();
+	public BusinessObjectSource loadBusniessObjectSource(Class<?> clz) {
+		BusinessObjectSource bos = new BusinessObjectSource();
 		if (clz.isAnnotationPresent(TableName.class)) {
 			TableName annotation = clz.getAnnotation(TableName.class);
 			//设置业务对象名称

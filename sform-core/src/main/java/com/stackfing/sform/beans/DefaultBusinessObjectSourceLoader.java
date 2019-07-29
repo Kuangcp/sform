@@ -5,8 +5,6 @@ import com.stackfing.sform.beans.annotation.BusniessObject;
 import com.stackfing.sform.beans.annotation.Exclude;
 import com.stackfing.sform.beans.support.EntityObjectSourceLoader;
 import com.stackfing.sform.beans.support.ViewObjetSourceLoader;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Iterator;
@@ -20,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Date: 下午7:18 19-7-22
  * @Since:
  */
-public class DefaultBusniessObjectSourceLoader implements BusniessObjectSourceLoader {
+public class DefaultBusinessObjectSourceLoader implements BusniessObjectSourceLoader {
 
     /**
      * 排除列表（有此标注的类、属性都不会被加载）
@@ -32,9 +30,9 @@ public class DefaultBusniessObjectSourceLoader implements BusniessObjectSourceLo
      */
     protected static final Map<Class<?>, Class<?>> map = new ConcurrentHashMap<>();
 
-    {
-        this.map.put(TableName.class, EntityObjectSourceLoader.class);
-        this.map.put(BusniessObject.class, ViewObjetSourceLoader.class);
+    static {
+        map.put(TableName.class, EntityObjectSourceLoader.class);
+        map.put(BusniessObject.class, ViewObjetSourceLoader.class);
     }
 
     /**
@@ -51,7 +49,7 @@ public class DefaultBusniessObjectSourceLoader implements BusniessObjectSourceLo
      * @return
      */
     @Override
-    public BusniessObjectSource loadBusniessObjectSource(Class<?> clz) {
+    public BusinessObjectSource loadBusniessObjectSource(Class<?> clz) {
         Set<Class<?>> classes = map.keySet();
         Iterator<Class<?>> iterator = classes.iterator();
         while (iterator.hasNext()) {
@@ -61,6 +59,7 @@ public class DefaultBusniessObjectSourceLoader implements BusniessObjectSourceLo
                 continue;
             }
             //根据注解判断是否为map中存有的key  anno == key
+            // TODO 为什么强转, 抛弃泛型的约束, 如果确实没约束就直接用原始类型, 泛型强转容易出问题
             if (clz.isAnnotationPresent((Class<? extends Annotation>) key)) {
                 try {
                     BusniessObjectSourceLoader bos = (BusniessObjectSourceLoader) target.newInstance();
@@ -76,6 +75,8 @@ public class DefaultBusniessObjectSourceLoader implements BusniessObjectSourceLo
     }
 
     protected boolean isExcludeAnnotationPresent(AnnotatedElement annotatedElement) {
+//        return Stream.of(annotationClass).anyMatch(annotatedElement::isAnnotationPresent);
+
         for (int i = 0; i < annotationClass.length; i++) {
             if (annotatedElement.isAnnotationPresent(annotationClass[i])) {
                 return true;

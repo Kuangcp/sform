@@ -10,10 +10,10 @@ import java.util.List;
  */
 public interface BusniessObjectSourceRegistry {
 
-	void registerBusniessObjectSource(BusniessObjectSource busniessObjectSource);
+	void registerBusniessObjectSource(BusinessObjectSource businessObjectSource);
 
 	void removeBusniessObjectSource(String tableName);
 
-	List<BusniessObjectSource> getBusniessObjectSource();
+	List<BusinessObjectSource> getBusniessObjectSource();
 
 }

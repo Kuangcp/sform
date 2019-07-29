@@ -15,10 +15,10 @@ import java.util.List;
  */
 public class ColumnInspector extends AbstractInspector<Column> {
 
-	private List<String> excludeColumnName = new ArrayList<>(Arrays.asList(new String[]{"table", "name"}));
+	private List<String> excludeColumnName = new ArrayList<>(Arrays.asList("table", "name"));
 
 	//TODO 主键只能为数字类型
-	private List<String> types = new ArrayList<>(Arrays.asList(new String[]{"varchar", "int", "bigint"}));
+	private List<String> types = new ArrayList<>(Arrays.asList("varchar", "int", "bigint"));
 
 	/**
 	 * 检查列是否正常

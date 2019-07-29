@@ -1,8 +1,7 @@
 package com.stackfing.sform.beans.support;
 
-import com.stackfing.sform.beans.BusniessObjectSource;
+import com.stackfing.sform.beans.BusinessObjectSource;
 import com.stackfing.sform.beans.BusniessObjectSourceRegistry;
-import com.stackfing.sform.beans.annotation.BusniessObject;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -18,11 +17,11 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class SimpleBusniessObjectSourceRegistry implements BusniessObjectSourceRegistry {
 
-	private final Map<String, BusniessObjectSource> registry = new ConcurrentHashMap<>(16);
+	private final Map<String, BusinessObjectSource> registry = new ConcurrentHashMap<>(16);
 
 	@Override
-	public void registerBusniessObjectSource(BusniessObjectSource busniessObjectSource) {
-		registry.put(busniessObjectSource.getTableName(), busniessObjectSource);
+	public void registerBusniessObjectSource(BusinessObjectSource businessObjectSource) {
+		registry.put(businessObjectSource.getTableName(), businessObjectSource);
 	}
 
 	@Override
@@ -31,8 +30,8 @@ public class SimpleBusniessObjectSourceRegistry implements BusniessObjectSourceR
 	}
 
 	@Override
-	public List<BusniessObjectSource> getBusniessObjectSource() {
-		List<BusniessObjectSource> list = new ArrayList<>();
+	public List<BusinessObjectSource> getBusniessObjectSource() {
+		List<BusinessObjectSource> list = new ArrayList<>();
 		Set<String> strings = registry.keySet();
 		Iterator<String> iterator = strings.iterator();
 		while (iterator.hasNext()) {
