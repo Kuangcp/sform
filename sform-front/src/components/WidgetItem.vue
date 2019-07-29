@@ -1,5 +1,5 @@
 <template>
-  <el-form-item :label="widget.label">
+  <el-form-item :label="widget.label" :rules="widget.rule">
     <template v-if="widget.type == 'input'">
       <el-input ref="lzq" :disabled="widget.disable" v-model="values[widget.name]">{{widget.defaultValue}}</el-input>
     </template>
@@ -21,7 +21,8 @@
         <el-radio
           v-for="item in (widget.options.remote == true) ? remoteRadioOptions : widget.options.option"
           :key="item.value"
-          :label="item.label"
+          :label="item.value"
+          
         >{{item.label}}</el-radio>
       </el-radio-group>
     </template>

@@ -17,6 +17,7 @@
       :list="myArray"
       :disabled="!enabled"
       class="list-group"
+      :options="{sort:false}"
       ghost-class="ghost"
       @start="dragging = true"
       @end="dragging = false"
