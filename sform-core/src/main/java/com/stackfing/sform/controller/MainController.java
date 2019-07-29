@@ -50,10 +50,10 @@ public class MainController {
 	}
 
 	@GetMapping("getBusniessObject")
-	public List<BusinessObjectSource> getDataSource() {
-		BoScanner boScanner = new ClasspathBoScanner("com.stackfing.sform.vo");
+	public List<BusniessObjectSource> getDatasources() {
+		ClasspathBoScanner boScanner = new ClasspathBoScanner("com.stackfing.sform.vo");
 		boScanner.scanPackage();
-		return null;
+		return boScanner.getAllBo();
 	}
 
 	@GetMapping("get")
@@ -97,4 +97,17 @@ public class MainController {
 	public List<String> getAllForm() {
 		return formMapper.selectAllForm();
 	}
+
+	@PostMapping("updateFormByName")
+	public String updateForm(@RequestBody Map<Object, Object> data) {
+		formMapper.updateFormByName(data);
+		return "更新成功！";
+	}
+
+	@PostMapping("deployForm/{name}")
+	public String deployForm(@PathVariable String name) {
+		formMapper.deployForm(name);
+		return "发布成功！";
+	}
+
 }

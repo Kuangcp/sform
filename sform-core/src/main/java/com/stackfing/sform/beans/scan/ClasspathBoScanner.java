@@ -121,4 +121,8 @@ public class ClasspathBoScanner implements BoScanner {
         }
         return clazzs;
     }
+
+    public List<BusniessObjectSource> getAllBo() {
+        return registry.getBusniessObjectSource();
+    }
 }
