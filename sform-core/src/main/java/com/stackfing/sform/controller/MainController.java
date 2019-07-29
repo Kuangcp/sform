@@ -65,7 +65,7 @@ public class MainController {
 	}
 
 	@GetMapping("getAllOptions")
-	public List<Options> alloptions() {
+	public List<Options> allOptions() {
 		Options options = new Options("1", "男生");
 		Options options1 = new Options("2", "女生");
 		List<Options> list = new ArrayList<>();

@@ -1,6 +1,6 @@
 package com.stackfing.sform.base.support;
 
-import com.stackfing.sform.base.AbstractTableCreater;
+import com.stackfing.sform.base.AbstractTableCreator;
 import com.stackfing.sform.base.Table;
 import com.stackfing.sform.mapper.TablesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Description:
  * @Date: 下午5:54 19-7-20
  */
-public class DefaultTableCreater extends AbstractTableCreater {
+public class DefaultTableCreator extends AbstractTableCreator {
 
 	@Autowired
 	private TablesMapper tablesMapper;

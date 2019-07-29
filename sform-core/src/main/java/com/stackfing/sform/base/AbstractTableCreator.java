@@ -12,13 +12,13 @@ import java.util.List;
  * @Description:
  * @Date: 下午5:59 19-7-20
  */
-public abstract class AbstractTableCreater implements TableCreater {
+public abstract class AbstractTableCreator implements TableCreater {
 
-	protected List<AbstractInspector> inspectableList = new ArrayList<>();
+	protected List<AbstractInspector> inspectAbleList = new ArrayList<>();
 
-	public AbstractTableCreater() {
-		inspectableList.add(new ColumnInspector());
-		inspectableList.add(new TableInspector());
+	public AbstractTableCreator() {
+		inspectAbleList.add(new ColumnInspector());
+		inspectAbleList.add(new TableInspector());
 	}
 
 	/**

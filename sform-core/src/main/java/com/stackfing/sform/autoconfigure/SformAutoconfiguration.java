@@ -1,7 +1,7 @@
 package com.stackfing.sform.autoconfigure;
 
 import com.stackfing.sform.base.TableCreater;
-import com.stackfing.sform.base.support.DefaultTableCreater;
+import com.stackfing.sform.base.support.DefaultTableCreator;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ public class SformAutoconfiguration {
 
 	@Bean
 	public TableCreater tableCreater() {
-		return new DefaultTableCreater();
+		return new DefaultTableCreator();
 	}
 
 }
