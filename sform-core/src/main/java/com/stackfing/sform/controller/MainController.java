@@ -93,4 +93,10 @@ public class MainController {
 	public List<String> getAllForm() {
 		return formMapper.selectAllForm();
 	}
+
+	@PostMapping("updateFormByName/{name}")
+	public String updateForm(@PathVariable String name, @RequestBody Map<Object, Object> data) {
+		formMapper.updateFormByName(data);
+		return "更新成功！";
+	}
 }

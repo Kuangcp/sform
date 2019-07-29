@@ -6,13 +6,7 @@
       <div v-for="(item,index) in forms" :key="index" @click="getFormByName(item)">{{item}}</div>
     </div>
 
-    <el-input
-      type="textarea"
-      :rows="10"
-      placeholder="请输入内容"
-      v-model="jsons">
-    </el-input>
-
+    <el-input type="textarea" :rows="10" placeholder="请输入内容" v-model="jsons"></el-input>
 
     <el-form :model="values" ref="form">
       <draggable :list="json.list">
@@ -22,6 +16,7 @@
       </draggable>
     </el-form>
     <el-button @click="getJson" type="primary" style="margin-top: 30px">获取设计表单JSON</el-button>
+    <el-button @click="updateJson" type="primary" style="margin-top: 30px">更新表单</el-button>
 
     <el-row :gutter="20">
       <el-col :span="5">
@@ -54,6 +49,7 @@ export default {
   components: { widgetitem, draggable },
   data() {
     return {
+      currentForm: null,
       layout: [
         {
           name: "asdf"
@@ -144,6 +140,23 @@ export default {
     };
   },
   methods: {
+    updateJson() {
+      if (this.currentForm) {
+        this.axios
+          .post(
+            "http://localhost:10010/updateFormByName/" + this.currentForm,
+            {json: JSON.stringify(this.json), formname: this.currentForm}
+          )
+          .then(res => {
+            this.$alert(JSON.stringify(res.data), "操作结果", {
+              confirmButtonText: "确定",
+              callback: action => {
+                // this.values = {};
+              }
+            });
+          });
+      }
+    },
     getAllForm() {
       this.axios("http://localhost:10010/getAllForm").then(res => {
         this.forms = res.data;
@@ -162,6 +175,7 @@ export default {
       this.axios
         .get("http://localhost:10010/getFormByName/" + name)
         .then(res => {
+          this.currentForm = name;
           const obj = {};
           obj.config = res.data.config;
           obj.list = res.data.list;
@@ -176,10 +190,10 @@ export default {
   computed: {
     jsons: {
       get: function() {
-        return JSON.stringify(this.json)
+        return JSON.stringify(this.json);
       },
       set: function(newVal) {
-        this.json = JSON.parse(newVal)
+        this.json = JSON.parse(newVal);
       }
     }
   }

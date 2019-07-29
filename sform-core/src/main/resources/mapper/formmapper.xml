@@ -12,4 +12,8 @@
         select form_name from forms
     </select>
 
+    <update id="updateFormByName" parameterType="map">
+        UPDATE forms SET json_value = #{data.json} WHERE form_name = #{data.formname}
+    </update>
+
 </mapper>
