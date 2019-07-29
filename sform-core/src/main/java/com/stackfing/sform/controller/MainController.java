@@ -3,7 +3,6 @@ package com.stackfing.sform.controller;
 import com.stackfing.sform.base.Table;
 import com.stackfing.sform.base.TableCreater;
 import com.stackfing.sform.beans.BusinessObjectSource;
-import com.stackfing.sform.beans.scan.BoScanner;
 import com.stackfing.sform.beans.scan.ClasspathBoScanner;
 import com.stackfing.sform.mapper.FormMapper;
 import com.stackfing.sform.mapper.TablesMapper;
@@ -50,7 +49,7 @@ public class MainController {
 	}
 
 	@GetMapping("getBusniessObject")
-	public List<BusniessObjectSource> getDatasources() {
+	public List<BusinessObjectSource> getDatasources() {
 		ClasspathBoScanner boScanner = new ClasspathBoScanner("com.stackfing.sform.vo");
 		boScanner.scanPackage();
 		return boScanner.getAllBo();

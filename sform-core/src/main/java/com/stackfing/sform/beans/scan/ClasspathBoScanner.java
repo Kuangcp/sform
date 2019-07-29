@@ -122,7 +122,7 @@ public class ClasspathBoScanner implements BoScanner {
         return clazzs;
     }
 
-    public List<BusniessObjectSource> getAllBo() {
+    public List<BusinessObjectSource> getAllBo() {
         return registry.getBusniessObjectSource();
     }
 }
