@@ -19,4 +19,6 @@ public interface FormMapper {
 
     void updateFormByName(@Param("data") Map<Object, Object> data);
 
+    void deployForm(@Param("name") String name);
+
 }

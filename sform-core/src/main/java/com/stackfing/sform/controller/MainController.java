@@ -94,9 +94,16 @@ public class MainController {
 		return formMapper.selectAllForm();
 	}
 
-	@PostMapping("updateFormByName/{name}")
-	public String updateForm(@PathVariable String name, @RequestBody Map<Object, Object> data) {
+	@PostMapping("updateFormByName")
+	public String updateForm(@RequestBody Map<Object, Object> data) {
 		formMapper.updateFormByName(data);
 		return "更新成功！";
 	}
+
+	@PostMapping("deployForm/{name}")
+	public String deployForm(@PathVariable String name) {
+		formMapper.deployForm(name);
+		return "发布成功！";
+	}
+
 }

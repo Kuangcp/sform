@@ -26,7 +26,8 @@ export default {
   data() {
     return {
         // values: {},
-        parent: this
+        parent: this,
+        currentSelect: null
     };
   },
   methods: {
